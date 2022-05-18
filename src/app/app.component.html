@@ -1,1 +1,9 @@
-init
+<app-header (mapControl)="gameControl($event)"></app-header>
+<section class="game__container" id="gameMap">
+  <div *ngIf="mapArr">
+    <app-field
+      [fieldStyle]="fieldStyle"
+      *ngFor="let item of mapArr"></app-field>
+  </div>
+  <span *ngIf="mapArr.length === 0">Zacznij grę</span>
+</section>

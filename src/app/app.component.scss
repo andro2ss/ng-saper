@@ -1,0 +1,17 @@
+.game{
+  &__container{
+    margin: 0 auto;
+    width: 80vw;
+    height: 60vh;
+    border: black solid 2px;
+
+    div {
+      display: flex;
+      flex-wrap: wrap;
+    }
+  }
+  &__field{
+    background-color: lightskyblue;
+    border: 1px solid black;
+  }
+}
