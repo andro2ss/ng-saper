@@ -8,14 +8,10 @@ import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 export class HeaderComponent {
   constructor() {}
 
-  mapSize: number = 1;
+  mapSize: number = 10;
+  @Output() mapControl = new EventEmitter<number>();
 
-  @Output() mapControl = new EventEmitter<{
-    mapSize: number;
-    startTrigger: boolean;
-  }>();
-
-  sendMapControl(value: { mapSize: number; startTrigger: boolean }) {
+  sendMapControl(value: number) {
     this.mapControl.emit(value);
   }
 
@@ -27,6 +23,6 @@ export class HeaderComponent {
   }
 
   handleStartBtn() {
-    this.sendMapControl({ mapSize: this.mapSize, startTrigger: true });
+    this.sendMapControl(this.mapSize);
   }
 }

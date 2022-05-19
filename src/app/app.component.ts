@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, HostListener } from '@angular/core';
+import { FieldComponentModel } from './models/FieldComponent.Model';
 
 @Component({
   selector: 'app-root',
@@ -6,50 +7,78 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent {
-  mapSize: number = 1;
-  startNewGame: boolean = false;
-  gameFieldWidth: number = 10;
-  gameFieldHeight: number = 10;
-  mapArr: number[] = [];
-
+  @HostListener('contextmenu', ['$event'])
+  onRightClick(event: any) {
+    event.preventDefault();
+  }
+  gameState: number = 0;
+  mapArr: FieldComponentModel[] = [];
   fieldStyle = {
-    height: this.gameFieldHeight + 'px',
-    width: this.gameFieldWidth + 'px',
+    height: '10px',
+    width: '10px',
   };
 
-  gameControl(gameControlValues: { mapSize: number; startTrigger: boolean }) {
-    console.log(this.mapArr.length);
+  generateBombs(fieldsAmount: number) {
+    const arr = [];
+    let bombProc: number = 0;
+    if (fieldsAmount < 101) {
+      bombProc = 0.2;
+    } else if (fieldsAmount < 300) {
+      bombProc = 0.35;
+    } else {
+      bombProc = 0.5;
+    }
+    const bombAmount: number = Math.floor(fieldsAmount * bombProc);
+    while (arr.length < bombAmount) {
+      let r = Math.floor(Math.random() * fieldsAmount);
+      if (arr.indexOf(r) === -1) arr.push(r);
+    }
+    return arr;
+  }
 
-    this.mapSize = gameControlValues.mapSize;
-    this.startNewGame = gameControlValues.startTrigger;
+  generateMap(fAmount: number) {
+    let fieldsAmount = fAmount * fAmount;
+    this.mapArr = [];
+    const bombArr = this.generateBombs(fieldsAmount);
     let maxWidth = document.getElementById('gameMap')?.clientWidth;
     let maxHeight = document.getElementById('gameMap')?.clientHeight;
-    if (gameControlValues.mapSize === 1 && maxHeight && maxWidth) {
-      console.log('1');
-      this.gameFieldWidth = maxWidth / 8;
-      this.gameFieldHeight = maxHeight / 8;
-      this.mapArr = [];
-      for (let i = 0; i < 64; i++) {
-        this.mapArr.push(i);
-      }
-    } else if (gameControlValues.mapSize === 2 && maxHeight && maxWidth) {
-      this.gameFieldWidth = maxWidth / 16;
-      this.gameFieldHeight = maxHeight / 16;
-      this.mapArr = [];
-      for (let i = 0; i < 256; i++) {
-        this.mapArr.push(i);
-      }
-    } else if (gameControlValues.mapSize === 3 && maxHeight && maxWidth) {
-      this.gameFieldWidth = maxWidth / 30;
-      this.gameFieldHeight = maxHeight / 16;
-      this.mapArr = [];
-      for (let i = 0; i < 480; i++) {
-        this.mapArr.push(i);
-      }
+    if (maxWidth && maxHeight) {
+      let tempWidth = maxWidth / fAmount;
+      let tempHeight = maxHeight / fAmount;
+      this.fieldStyle = {
+        height: tempHeight + 'px',
+        width: tempWidth + 'px',
+      };
     }
-    this.fieldStyle = {
-      height: this.gameFieldHeight + 'px',
-      width: this.gameFieldWidth + 'px',
-    };
+
+    for (let i = 0; i < fieldsAmount; i++) {
+      let tempBomb = false;
+      bombArr.forEach(item => {
+        if (item === i) {
+          tempBomb = true;
+        }
+      });
+      let nearBombs = 1;
+      let tempArrItem: FieldComponentModel = {
+        fIndex: i,
+        fStyle: this.fieldStyle,
+        nearBombs: nearBombs,
+        bomb: tempBomb,
+      };
+      this.mapArr.push(tempArrItem);
+    }
+  }
+
+  gameControl(gameControlValues: number) {
+    this.generateMap(gameControlValues);
+  }
+
+  handleNewGame() {
+    this.gameState = 0;
+    this.mapArr = [];
+  }
+
+  readGameState(readGameState: number) {
+    this.gameState = readGameState;
   }
 }

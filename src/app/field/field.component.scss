@@ -1,4 +1,21 @@
+body{
+  background-color: lightskyblue;
+
+}
+
 .game__field{
   background-color: lightskyblue;
   border: 1px solid black;
-}
+
+  &.activeted{
+    background-color: silver;
+  }
+  &.mineThere{
+    background-color: orange;
+  }
+  &.block{
+    background-color: white;
+  }
+  }
+
+

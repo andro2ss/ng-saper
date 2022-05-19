@@ -1,1 +1,9 @@
-<div class="game__field" style="{{ fieldStyle }}"></div>
+<div
+  *ngIf="fData"
+  class="game__field"
+  style="{{ fData.fStyle }}"
+  (click)="onClick($event)"
+  (auxclick)="onAuxClick($event)">
+  {{ fData.fIndex }}
+  <span *ngIf="fieldState === 0">{{ fData.nearBombs }}</span>
+</div>

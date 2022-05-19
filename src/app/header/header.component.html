@@ -8,28 +8,28 @@
           type="radio"
           id="smallMap"
           name="mapSize"
-          value="1"
+          value="10"
           checked
           (click)="changeMap($event)" />
-        <label for="smallMap">Mała: 8x8 - 10 min</label>
+        <label for="smallMap">Mała</label>
       </div>
       <div>
         <input
           type="radio"
           id="mediumMap"
           name="mapSize"
-          value="2"
+          value="15"
           (click)="changeMap($event)" />
-        <label for="mediumMap">Średnia: 16x16 - 40 min</label>
+        <label for="mediumMap">Średnia</label>
       </div>
       <div>
         <input
           type="radio"
           id="bigMap"
           name="mapSize"
-          value="3"
+          value="30"
           (click)="changeMap($event)" />
-        <label for="bigMap">Duża: 16x30 - 99 min</label>
+        <label for="bigMap">Duża</label>
       </div>
     </div>
     <button (click)="handleStartBtn()">Start</button>
