@@ -17,9 +17,29 @@ export class AppComponent {
     height: '10px',
     width: '10px',
   };
+  checkNearestBomb(fieldIndex: number, mapSize: number, bombArr: number[]) {
+    const fieldsToCheck: number[] = [];
+    let bombCounter: number = 0;
+    fieldsToCheck.push(fieldIndex - 1);
+    fieldsToCheck.push(fieldIndex + 1);
+    fieldsToCheck.push(fieldIndex - 1 - mapSize);
+    fieldsToCheck.push(fieldIndex - mapSize);
+    fieldsToCheck.push(fieldIndex + 1 - mapSize);
+    fieldsToCheck.push(fieldIndex - 1 + mapSize);
+    fieldsToCheck.push(fieldIndex + mapSize);
+    fieldsToCheck.push(fieldIndex + 1 + mapSize);
+    bombArr.forEach(bomb => {
+      fieldsToCheck.forEach(field => {
+        if (field === bomb) {
+          bombCounter++;
+        }
+      });
+    });
+    return bombCounter;
+  }
 
   generateBombs(fieldsAmount: number) {
-    const arr = [];
+    const arr: number[] = [];
     let bombProc: number = 0;
     if (fieldsAmount < 101) {
       bombProc = 0.2;
@@ -58,7 +78,7 @@ export class AppComponent {
           tempBomb = true;
         }
       });
-      let nearBombs = 1;
+      let nearBombs = this.checkNearestBomb(i, fAmount, bombArr);
       let tempArrItem: FieldComponentModel = {
         fIndex: i,
         fStyle: this.fieldStyle,
