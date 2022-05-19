@@ -1,6 +1,7 @@
 <app-header
   *ngIf="gameState !== -1"
   (mapControl)="gameControl($event)"></app-header>
+<span>Znaleziono: {{ disabledBombAmount }} bomb z {{ bombAmount }}</span>
 <section class="game__container" id="gameMap" *ngIf="gameState === 0">
   <div *ngIf="mapArr">
     <div *ngFor="let item of mapArr">

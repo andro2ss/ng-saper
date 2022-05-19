@@ -11,23 +11,52 @@ export class AppComponent {
   onRightClick(event: any) {
     event.preventDefault();
   }
+
   gameState: number = 0;
   mapArr: FieldComponentModel[] = [];
+  bombAmount: number = 0;
+  disabledBombAmount: number = 0;
   fieldStyle = {
     height: '10px',
     width: '10px',
   };
+
   checkNearestBomb(fieldIndex: number, mapSize: number, bombArr: number[]) {
     const fieldsToCheck: number[] = [];
     let bombCounter: number = 0;
-    fieldsToCheck.push(fieldIndex - 1);
-    fieldsToCheck.push(fieldIndex + 1);
-    fieldsToCheck.push(fieldIndex - 1 - mapSize);
-    fieldsToCheck.push(fieldIndex - mapSize);
-    fieldsToCheck.push(fieldIndex + 1 - mapSize);
-    fieldsToCheck.push(fieldIndex - 1 + mapSize);
-    fieldsToCheck.push(fieldIndex + mapSize);
-    fieldsToCheck.push(fieldIndex + 1 + mapSize);
+    let max = mapSize * mapSize;
+    // sprawdz czy mozna patrzec po lewej
+    if (fieldIndex % mapSize > 0) {
+      fieldsToCheck.push(fieldIndex - 1);
+      // sprawdz czy mozna gore
+      if (fieldIndex - mapSize >= 0) {
+        fieldsToCheck.push(fieldIndex - 1 - mapSize);
+      }
+      // sprawdz czy mozna dol
+      if (fieldIndex + mapSize < max) {
+        fieldsToCheck.push(fieldIndex - 1 + mapSize);
+      }
+    }
+    // sprawdz czy mozna patrzec po prawej
+    if ((fieldIndex + 1) % mapSize > 0) {
+      fieldsToCheck.push(fieldIndex + 1);
+      // sprawdz czy mozna gore
+      if (fieldIndex - mapSize >= 0) {
+        fieldsToCheck.push(fieldIndex + 1 - mapSize);
+      }
+      // sprawdz czy mozna dol
+      if (fieldIndex + mapSize < max) {
+        fieldsToCheck.push(fieldIndex + 1 + mapSize);
+      }
+    }
+    // sprawdz czy mozna gore
+    if (fieldIndex - mapSize > 0) {
+      fieldsToCheck.push(fieldIndex - mapSize);
+    }
+    // sprawdz czy mozna dol
+    if (fieldIndex + mapSize < max) {
+      fieldsToCheck.push(fieldIndex + mapSize);
+    }
     bombArr.forEach(bomb => {
       fieldsToCheck.forEach(field => {
         if (field === bomb) {
@@ -60,6 +89,7 @@ export class AppComponent {
     let fieldsAmount = fAmount * fAmount;
     this.mapArr = [];
     const bombArr = this.generateBombs(fieldsAmount);
+    this.bombAmount = bombArr.length;
     let maxWidth = document.getElementById('gameMap')?.clientWidth;
     let maxHeight = document.getElementById('gameMap')?.clientHeight;
     if (maxWidth && maxHeight) {
