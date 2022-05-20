@@ -1,15 +1,21 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { PrimeNGConfig } from 'primeng/api';
 
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss'],
 })
-export class HeaderComponent {
-  constructor() {}
+export class HeaderComponent implements OnInit {
+  constructor(private primengConfig: PrimeNGConfig) {}
+
+  ngOnInit() {
+    this.primengConfig.ripple = true;
+  }
 
   mapSize: number = 10;
   @Output() mapControl = new EventEmitter<number>();
+  visibleSidebar: any;
 
   sendMapControl(value: number) {
     this.mapControl.emit(value);

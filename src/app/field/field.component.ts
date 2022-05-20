@@ -28,10 +28,6 @@ export class FieldComponent implements OnInit {
       this.tempData.activated = true;
       event.path[0].classList.add('activated');
       this.emitFState();
-
-      // if (this.fData?.bomb) {
-      //   this.emitFState();
-      // }
     }
   }
 

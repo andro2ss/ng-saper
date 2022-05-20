@@ -11,7 +11,7 @@
           value="10"
           checked
           (click)="changeMap($event)" />
-        <label for="smallMap">Mała</label>
+        <label for="smallMap">S</label>
       </div>
       <div>
         <input
@@ -20,7 +20,7 @@
           name="mapSize"
           value="15"
           (click)="changeMap($event)" />
-        <label for="mediumMap">Średnia</label>
+        <label for="mediumMap">M</label>
       </div>
       <div>
         <input
@@ -29,9 +29,10 @@
           name="mapSize"
           value="30"
           (click)="changeMap($event)" />
-        <label for="bigMap">Duża</label>
+        <label for="bigMap">L</label>
       </div>
     </div>
     <button (click)="handleStartBtn()">Start</button>
   </section>
+  <div class="menu__btn"></div>
 </header>

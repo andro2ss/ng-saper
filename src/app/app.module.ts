@@ -7,9 +7,18 @@ import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
 import { FieldComponent } from './field/field.component';
 
+import { SidebarModule } from 'primeng/sidebar';
+import { ButtonModule } from 'primeng/button';
+
 @NgModule({
   declarations: [AppComponent, HeaderComponent, FieldComponent],
-  imports: [BrowserModule, AppRoutingModule, FormsModule],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    FormsModule,
+    SidebarModule,
+    ButtonModule,
+  ],
   providers: [],
   bootstrap: [AppComponent],
 })
