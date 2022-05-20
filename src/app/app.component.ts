@@ -13,9 +13,10 @@ export class AppComponent {
   }
 
   gameState: number = 0;
+  mapSize: number = 0;
   mapArr: FieldComponentModel[] = [];
   bombAmount: number = 0;
-  disabledBombAmount: number = 0;
+  activatedField: number = 0;
   fieldStyle = {
     height: '10px',
     width: '10px',
@@ -86,6 +87,7 @@ export class AppComponent {
   }
 
   generateMap(fAmount: number) {
+    this.mapSize = fAmount;
     let fieldsAmount = fAmount * fAmount;
     this.mapArr = [];
     const bombArr = this.generateBombs(fieldsAmount);
@@ -111,9 +113,11 @@ export class AppComponent {
       let nearBombs = this.checkNearestBomb(i, fAmount, bombArr);
       let tempArrItem: FieldComponentModel = {
         fIndex: i,
+        fClass: 'game__field',
         fStyle: this.fieldStyle,
         nearBombs: nearBombs,
         bomb: tempBomb,
+        activated: false,
       };
       this.mapArr.push(tempArrItem);
     }
@@ -125,10 +129,101 @@ export class AppComponent {
 
   handleNewGame() {
     this.gameState = 0;
+    this.activatedField = 0;
     this.mapArr = [];
   }
 
-  readGameState(readGameState: number) {
-    this.gameState = readGameState;
+  rewriteArray(index: number) {
+    let tempItem = this.mapArr[index];
+    this.mapArr[index] = {
+      fClass: tempItem.fClass,
+      fIndex: tempItem.fIndex,
+      fStyle: tempItem.fStyle,
+      nearBombs: tempItem.nearBombs,
+      bomb: tempItem.bomb,
+      activated: true,
+    };
+    this.activatedField++;
+    if (tempItem.nearBombs === 0) {
+      this.showSaveFields(tempItem);
+    }
+  }
+
+  showSaveFields(startField: FieldComponentModel) {
+    let upperIndex = startField.fIndex - this.mapSize;
+    let rightIndex = startField.fIndex + 1;
+    let rightUpperIndex = startField.fIndex + 1 - this.mapSize;
+    let lowerIndex = startField.fIndex + this.mapSize;
+    let rightLowerIndex = startField.fIndex + this.mapSize + 1;
+    let leftIndex = startField.fIndex - 1;
+    let leftUpperIndex = startField.fIndex - 1 - this.mapSize;
+    let leftLowerIndex = startField.fIndex - 1 + this.mapSize;
+
+    if (
+      leftLowerIndex % this.mapSize !== this.mapSize - 1 &&
+      leftLowerIndex < this.mapSize * this.mapSize &&
+      !this.mapArr[leftLowerIndex].activated
+    ) {
+      this.rewriteArray(leftLowerIndex);
+    }
+
+    if (
+      leftUpperIndex % this.mapSize !== this.mapSize - 1 &&
+      leftUpperIndex > 0 &&
+      !this.mapArr[leftUpperIndex].activated
+    ) {
+      this.rewriteArray(leftUpperIndex);
+    }
+
+    if (
+      leftIndex % this.mapSize !== this.mapSize - 1 &&
+      !this.mapArr[leftIndex].activated
+    ) {
+      this.rewriteArray(leftIndex);
+    }
+
+    if (
+      rightLowerIndex < this.mapSize * this.mapSize &&
+      rightLowerIndex % this.mapSize !== 0 &&
+      !this.mapArr[rightLowerIndex].activated
+    ) {
+      this.rewriteArray(rightLowerIndex);
+    }
+
+    if (
+      lowerIndex < this.mapSize * this.mapSize &&
+      !this.mapArr[lowerIndex].activated
+    ) {
+      this.rewriteArray(lowerIndex);
+    }
+
+    if (rightIndex % this.mapSize !== 0 && !this.mapArr[rightIndex].activated) {
+      this.rewriteArray(rightIndex);
+    }
+
+    if (upperIndex > 0 && !this.mapArr[upperIndex].activated) {
+      this.rewriteArray(upperIndex);
+    }
+
+    if (
+      rightUpperIndex % this.mapSize !== 0 &&
+      rightUpperIndex > 0 &&
+      !this.mapArr[rightUpperIndex].activated
+    ) {
+      this.rewriteArray(rightUpperIndex);
+    }
+  }
+
+  readGameState(localData: FieldComponentModel) {
+    if (localData.bomb) {
+      this.gameState = -1;
+      this.bombAmount = 0;
+    } else {
+      this.mapArr[localData.fIndex] = localData;
+      this.activatedField++;
+      if (localData.nearBombs === 0) {
+        this.showSaveFields(localData);
+      }
+    }
   }
 }

@@ -1,20 +1,36 @@
-body{
-  background-color: lightskyblue;
-
-}
+@import "../../styles/variablesAll.scss";
 
 .game__field{
-  background-color: lightskyblue;
-  border: 1px solid black;
+  background-color: $color-2;
+  border: 2px solid $color-3;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 
-  &.activeted{
-    background-color: silver;
+  &.activated{
+    background-color: $color-1;
   }
   &.mineThere{
-    background-color: orange;
+    background-color: $color-3;
+    border: $color-1 8px solid;
   }
   &.block{
-    background-color: white;
+    background-color: $color-3;
+    border: $color-1 8px solid;
+  }
+
+  img{
+    height: 100%;
+  }
+
+  span{
+    display: flex;
+    width: 90%;
+    height: 80%;
+    background: $color-3;
+    justify-content: center;
+    align-items: center;
+    color: $color-2;
   }
   }
 

@@ -1,8 +1,14 @@
 <div
   *ngIf="fData"
-  class="game__field"
+  class="{{ fData.fClass }}"
   style="{{ fData.fStyle }}"
   (click)="onClick($event)"
   (auxclick)="onAuxClick($event)">
-  <span *ngIf="fieldState === 0">{{ fData.nearBombs }}</span>
+  <span
+    *ngIf="fieldState === 0 && fData.nearBombs > 0 && !fData.bomb"
+    style="{{ numSize }}"
+    >{{ fData.nearBombs }}</span
+  >
+  <img src="../../assets/pin.gif" alt="" *ngIf="fieldState === 1" />
+  <img src="../../assets/flag.gif" alt="" *ngIf="fieldState === 2" />
 </div>
