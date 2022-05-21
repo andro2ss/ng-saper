@@ -15,6 +15,7 @@
       text-shadow: 0 0 2px $color-2, 0 0 2px $color-2, 0 0 2px $color-2, 0 0 2px $color-2;
       color: $color-4;
       margin-bottom: 0;
+      font-size: 3rem;
       animation: pulse;
       animation-duration: 5s;
       animation-delay: 1s;
@@ -133,7 +134,7 @@
   background-color: $color-1;
   width: 90vw;
   height: 80vh;
-  top: 100px;
+  top: 150px;
   position: absolute;
   z-index: 5;
 }
