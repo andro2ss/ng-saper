@@ -13,6 +13,13 @@ export class HeaderComponent implements OnInit {
     this.primengConfig.ripple = true;
   }
 
+  toggleMenu() {
+    let menuElement = document.getElementById('menu');
+    if (menuElement) {
+      menuElement.classList.toggle('close');
+    }
+  }
+
   mapSize: number = 10;
   @Output() mapControl = new EventEmitter<number>();
   visibleSidebar: any;
@@ -30,5 +37,6 @@ export class HeaderComponent implements OnInit {
 
   handleStartBtn() {
     this.sendMapControl(this.mapSize);
+    this.toggleMenu();
   }
 }
