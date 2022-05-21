@@ -8,7 +8,7 @@
     margin: 0 auto;
     align-items: center;
     text-align: center;
-    position: relative;
+    //position: relative;
 
     h1 {
       font-family: $font-fancy;
@@ -47,7 +47,7 @@
     position: absolute;
     left: 50%;
     top: 50%;
-    transform: translate(-50%, 50%);
+    transform: translate(-50%, -50%);
     z-index: 10;
     background: $color-2;
     border: 2px solid $color-4;
@@ -87,23 +87,14 @@
     }
   }
 
-  &__instructions{
-    h2 {
-      font-family: $font-fancy;
-      text-shadow: 0 0 2px $color-1, 0 0 2px $color-1, 0 0 2px $color-1, 0 0 2px $color-1;
-    }
+  &__instructions {
+    @include infoBox;
+    left: 10%;
+  }
 
-    position: absolute;
-    left: 5%;
-    top: 50%;
-    transform: translateY(50%);
-    width: 400px;
-    background: $color-2;
-    border: 2px solid $color-4;
-    padding: 1rem;
-    border-radius: 2rem;
-    z-index: 10;
-
+  &__controls {
+    @include infoBox;
+    right: 10%;
   }
 
   &__inputBoxes {
@@ -136,4 +127,13 @@
 
 .close {
   display: none;
+}
+
+#menu {
+  background-color: $color-1;
+  width: 90vw;
+  height: 80vh;
+  top: 100px;
+  position: absolute;
+  z-index: 5;
 }
