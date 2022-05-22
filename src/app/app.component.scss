@@ -1,15 +1,15 @@
-.game{
-  &__container{
+.game {
+  &__container {
     margin: 0 auto;
-    width: 70vw;
-    height: 70vh;
-    border: black solid 2px;
     position: relative;
+
     div {
       display: flex;
       flex-wrap: wrap;
+      justify-content: center;
     }
-    span{
+
+    span {
       display: block;
       position: absolute;
       top: 50%;

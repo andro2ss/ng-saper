@@ -2,7 +2,11 @@
   *ngIf="gameState !== -1"
   (mapControl)="gameControl($event)"></app-header>
 <span>Odkryto {{ activatedField }} pól z {{ mapArr.length - bombAmount }}</span>
-<section class="game__container" id="gameMap" *ngIf="gameState === 0">
+<section
+  style="{{ mapStyle }}"
+  class="game__container"
+  id="gameMap"
+  *ngIf="gameState === 0">
   <div *ngIf="mapArr">
     <div *ngFor="let item of mapArr">
       <app-field [fData]="item" (fState)="readGameState($event)"></app-field>

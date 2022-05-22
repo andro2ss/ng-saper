@@ -1,4 +1,4 @@
-import { Component, HostListener } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 import { FieldComponentModel } from './models/FieldComponent.Model';
 
 @Component({
@@ -6,7 +6,7 @@ import { FieldComponentModel } from './models/FieldComponent.Model';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   @HostListener('contextmenu', ['$event'])
   onRightClick(event: any) {
     event.preventDefault();
@@ -20,6 +20,10 @@ export class AppComponent {
   fieldStyle = {
     height: '10px',
     width: '10px',
+  };
+  mapStyle = {
+    height: '70vh',
+    width: '70vw',
   };
 
   checkNearestBomb(fieldIndex: number, mapSize: number, bombArr: number[]) {
@@ -92,17 +96,7 @@ export class AppComponent {
     this.mapArr = [];
     const bombArr = this.generateBombs(fieldsAmount);
     this.bombAmount = bombArr.length;
-    let maxWidth = document.getElementById('gameMap')?.clientWidth;
-    let maxHeight = document.getElementById('gameMap')?.clientHeight;
-    if (maxWidth && maxHeight) {
-      let tempWidth = maxWidth / fAmount;
-      let tempHeight = maxHeight / fAmount;
-      this.fieldStyle = {
-        height: tempHeight + 'px',
-        width: tempWidth + 'px',
-      };
-    }
-
+    this.generateSize(fAmount);
     for (let i = 0; i < fieldsAmount; i++) {
       let tempBomb = false;
       bombArr.forEach(item => {
@@ -120,6 +114,41 @@ export class AppComponent {
         activated: false,
       };
       this.mapArr.push(tempArrItem);
+    }
+  }
+  generateSize(fAmount: number) {
+    let maxWidth = document.documentElement.clientWidth * 0.7;
+    let maxHeight = document.documentElement.clientHeight * 0.7;
+    let tempWidth = maxWidth / (fAmount + 1);
+    let tempHeight = maxHeight / (fAmount + 1);
+    let tempWidthMap = tempWidth * 0.5 + tempWidth * fAmount;
+    let tempHeightMap = tempHeight * 0.5 + tempHeight * fAmount;
+    this.fieldStyle = {
+      height: tempHeight + 'px',
+      width: tempWidth + 'px',
+    };
+    this.mapStyle = {
+      height: tempHeightMap + 'px',
+      width: tempWidthMap + 'px',
+    };
+  }
+
+  resizeMap(fAmount: number) {
+    if (this.mapArr.length > 1) {
+      this.generateSize(fAmount);
+      let tempArr: FieldComponentModel[] = [];
+      this.mapArr.forEach(field => {
+        field = {
+          fIndex: field.fIndex,
+          fClass: field.fClass,
+          fStyle: this.fieldStyle,
+          nearBombs: field.nearBombs,
+          bomb: field.bomb,
+          activated: field.activated,
+        };
+        tempArr.push(field);
+      });
+      this.mapArr = tempArr;
     }
   }
 
@@ -225,5 +254,11 @@ export class AppComponent {
         this.showSaveFields(localData);
       }
     }
+  }
+
+  ngOnInit() {
+    window.addEventListener('resize', () => {
+      this.resizeMap(this.mapSize);
+    });
   }
 }
