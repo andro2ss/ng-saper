@@ -1,27 +1,38 @@
-# NgSaper
+# Ng Saper
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 13.3.5.
+## Table of contents
+* [General info](#general-info)
+* [Technologies](#Technologies)
+* [Setup](#Setup)
+* [App website](#App-website)
 
-## Development server
+## General info
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+A minigame inspired by windows minesweeper. Game adapted for desktop devices.
 
-## Code scaffolding
+### Project assumptions
+1. The game has 3 difficulty levels / maps. 
+   1. S -Easy 10x10 fields and 20% chance to bomb.
+   2. M - Medium 15x15 fields and 35% chance to bomb.
+   3. L - Hard 30x30 fields and 50% chance to bomb.
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+## Technologies
+* TypeScript
+* Angular
+* SCSS
+* Firebase
 
-## Build
+## Setup
+To run this project, clone repo and install it locally using npm:
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+```
+$ npm install
+```
 
-## Running unit tests
+Next in terminal use:
+```
+$ npm start
+```
+## App website
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+### [Ng Saper](https://ng-saper.web.app/)
