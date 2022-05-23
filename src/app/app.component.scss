@@ -1,3 +1,5 @@
+@import "../styles/variablesAll.scss";
+
 .game {
   &__container {
     margin: 0 auto;
@@ -17,6 +19,23 @@
       transform: translate(-50%, -50%);
       font-size: 3rem;
     }
+
+    .gameOver__box{
+      position: absolute;
+      transform: translate(-50%, -50%);
+      left: 50%;
+      top: 50%;
+      background: $color-1;
+      opacity: 0.8;
+      display: flex;
+      flex-direction: column;
+      column-gap: 2rem;
+
+      button{
+        opacity: 1;
+
+      }
+    }
   }
 
 }
@@ -25,3 +44,5 @@
   animation: zoomIn;
   animation-duration: 1s;
 }
+
+
