@@ -1,6 +1,17 @@
 <header class="container__main">
   <h1>Saper</h1>
-  <div id="menu">
+  <div id="menu" *ngIf="menu === 1">
+    <section class="container__instructions">
+      <h2>Instrukcje</h2>
+      <ol>
+        <li>Aby wygrać musisz odsłonić pola mapy bez min</li>
+        <li>Odsłonięcie pola z miną kończy grę</li>
+        <li>
+          Cyfra na odsłoniętym polu informuje o ilości min przylegających do
+          pola
+        </li>
+      </ol>
+    </section>
     <section class="container__options">
       <h2>Wybierz mape</h2>
       <div class="btn__close" (click)="toggleMenu()">
@@ -37,17 +48,6 @@
         </div>
       </div>
       <button (click)="handleStartBtn()">Start</button>
-    </section>
-    <section class="container__instructions">
-      <h2>Instrukcje</h2>
-      <ol>
-        <li>Aby wygrać musisz odsłonić pola mapy bez min</li>
-        <li>Odsłonięcie pola z miną kończy grę</li>
-        <li>
-          Cyfra na odsłoniętym polu informuje o ilości min przylegających do
-          pola
-        </li>
-      </ol>
     </section>
     <section class="container__controls">
       <h2>Sterowanie</h2>

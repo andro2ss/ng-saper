@@ -5,13 +5,13 @@
     margin: 0 auto;
     position: relative;
 
-    div {
+    .boxes {
       display: flex;
       flex-wrap: wrap;
       justify-content: center;
     }
 
-    span {
+    .game__info {
       display: block;
       position: absolute;
       top: 50%;
@@ -20,7 +20,7 @@
       font-size: 3rem;
     }
 
-    .gameOver__box{
+    .gameOver__box {
       position: absolute;
       transform: translate(-50%, -50%);
       left: 50%;
@@ -29,20 +29,35 @@
       opacity: 0.8;
       display: flex;
       flex-direction: column;
-      column-gap: 2rem;
+      column-gap: 3rem;
+      align-items: center;
+      justify-content: center;
 
-      button{
-        opacity: 1;
-
+      button {
+        @include customBtn;
       }
+
+      h2 {
+        @include customH2;
+      }
+
     }
+
+
+
   }
+
 
 }
 
-.animation__zoom{
+.animation__zoom {
   animation: zoomIn;
   animation-duration: 1s;
 }
 
 
+.game__score {
+  width: 100%;
+  display: block;
+  text-align: center
+}

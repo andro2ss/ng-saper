@@ -13,6 +13,7 @@ export class AppComponent implements OnInit {
   }
 
   gameState: number = 0;
+  newGame: number = 1;
   mapSize: number = 0;
   mapArr: FieldComponentModel[] = [];
   bombAmount: number = 0;
@@ -154,6 +155,7 @@ export class AppComponent implements OnInit {
 
   gameControl(gameControlValues: number) {
     this.generateMap(gameControlValues);
+    this.newGame = 0;
     let mapElement = document.getElementById('gameMap');
     if (mapElement) {
       mapElement.classList.toggle('animation__zoom');
@@ -167,7 +169,9 @@ export class AppComponent implements OnInit {
   handleNewGame() {
     this.gameState = 0;
     this.activatedField = 0;
+    this.bombAmount = 0;
     this.mapArr = [];
+    this.newGame = 1;
   }
 
   rewriteArray(index: number) {
@@ -252,15 +256,16 @@ export class AppComponent implements OnInit {
   }
 
   readGameState(localData: FieldComponentModel) {
-    if (localData.bomb) {
+    if (localData.bomb && localData.activated) {
       this.gameState = -1;
-      this.bombAmount = 0;
     } else {
       this.mapArr[localData.fIndex] = localData;
-      this.activatedField++;
-      if (localData.nearBombs === 0) {
+      if (localData.nearBombs === 0 && localData.activated) {
         this.showSaveFields(localData);
       }
+    }
+    if (localData.activated) {
+      this.activatedField++;
     }
   }
 

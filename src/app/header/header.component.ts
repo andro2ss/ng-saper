@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 import { PrimeNGConfig } from 'primeng/api';
 
 @Component({
@@ -9,11 +9,22 @@ import { PrimeNGConfig } from 'primeng/api';
 export class HeaderComponent implements OnInit {
   constructor(private primengConfig: PrimeNGConfig) {}
 
+  @Input() menu: number = 1;
+
   ngOnInit() {
     this.primengConfig.ripple = true;
   }
 
+  changeStatus(num: number) {
+    if (num === 0) {
+      return 1;
+    } else {
+      return 0;
+    }
+  }
+
   toggleMenu() {
+    this.menu = this.changeStatus(this.menu);
     let menuElement = document.getElementById('menu');
     if (menuElement) {
       menuElement.classList.toggle('close');

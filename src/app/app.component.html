@@ -1,16 +1,21 @@
-<app-header (mapControl)="gameControl($event)"></app-header>
-<span>Odkryto {{ activatedField }} pól z {{ mapArr.length - bombAmount }}</span>
+<app-header (mapControl)="gameControl($event)" [menu]="newGame"></app-header>
+
 <section style="{{ mapStyle }}" class="game__container" id="gameMap">
   <!--  *ngIf="gameState === 0">-->
-  <div *ngIf="mapArr">
+  <div *ngIf="mapArr" class="boxes">
     <div *ngFor="let item of mapArr">
       <app-field [fData]="item" (fState)="readGameState($event)"></app-field>
     </div>
   </div>
-  <span *ngIf="mapArr.length === 0">Zacznij grę</span>
+  <span *ngIf="mapArr.length === 0" class="game__info">Zacznij grę</span>
   <div *ngIf="gameState === -1" class="gameOver__box" style="{{ mapStyle }}">
-    <span> Porażka </span> <button (click)="handleNewGame()">Nowa gra</button>
+    <h2>Koniec Gry!</h2>
+    <button (click)="handleNewGame()">Nowa gra</button>
   </div>
 </section>
+
+<p class="game__score" *ngIf="activatedField > 0">
+  Odkryto {{ activatedField }} pól z {{ mapArr.length - bombAmount }}
+</p>
 
 <section *ngIf="gameState === 1"><span> Wygrana </span></section>

@@ -9,6 +9,10 @@
     style="{{ numSize }}"
     >{{ fData.nearBombs }}</span
   >
-  <img src="../../assets/pin.gif" alt="" *ngIf="fieldState === 1" />
-  <img src="../../assets/flag.gif" alt="" *ngIf="fieldState === 2" />
+  <img src="../../assets/pin.gif" alt="Pin Icon" *ngIf="fieldState === 1" />
+  <img src="../../assets/flag.gif" alt="Flag Icon" *ngIf="fieldState === 2" />
+  <img
+    src="../../assets/explosion.png"
+    alt="Explosion Icon"
+    *ngIf="fieldState === 3" />
 </div>

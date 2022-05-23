@@ -27,6 +27,10 @@ export class FieldComponent implements OnInit {
       // @ts-ignore
       this.tempData.activated = true;
       event.path[0].classList.add('activated');
+
+      if (this.tempData?.bomb) {
+        this.fieldState = 3;
+      }
       this.emitFState();
     }
   }
@@ -65,6 +69,17 @@ export class FieldComponent implements OnInit {
           this.fieldState = 1;
         }
       }
+      if (this.fieldState === 1) {
+        // @ts-ignore
+        this.tempData?.fClass = 'game__field block';
+      } else if (this.fieldState === 2) {
+        // @ts-ignore
+        this.tempData?.fClass = 'game__field mineThere';
+      } else if (this.fieldState === -1) {
+        // @ts-ignore
+        this.tempData?.fClass = 'game__field';
+      }
+      this.emitFState();
     }
   }
 
@@ -75,6 +90,11 @@ export class FieldComponent implements OnInit {
       if (this.fData.activated) {
         this.fieldState = 0;
         this.fData.fClass = 'game__field activated';
+      }
+      if (this.fData.fClass.includes('block')) {
+        this.fieldState = 1;
+      } else if (this.fData.fClass.includes('mineThere')) {
+        this.fieldState = 2;
       }
       tempSize = parseInt(this.fData?.fStyle.height) * 0.7;
       let tempFont: string = tempSize + 'px';

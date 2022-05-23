@@ -1,29 +1,31 @@
 @import "../../styles/variablesAll.scss";
 
-.game__field{
+.game__field {
   background-color: $color-2;
   border: 2px solid $color-3;
   display: flex;
   justify-content: center;
   align-items: center;
 
-  &.activated{
+  &.activated {
     background-color: $color-1;
   }
-  &.mineThere{
-    background-color: $color-3;
-    border: $color-1 2px solid;
-  }
-  &.block{
+
+  &.mineThere {
     background-color: $color-3;
     border: $color-1 2px solid;
   }
 
-  img{
+  &.block {
+    background-color: $color-3;
+    border: $color-1 2px solid;
+  }
+
+  img {
     height: 100%;
   }
 
-  span{
+  span {
     display: flex;
     width: 90%;
     height: 80%;
@@ -32,6 +34,4 @@
     align-items: center;
     color: $color-2;
   }
-  }
-
-
+}
