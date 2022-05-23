@@ -14,7 +14,7 @@
   </div>
   <span *ngIf="mapArr.length === 0">Zacznij grę</span>
 </section>
-<section *ngIf="gameState === -1">
+<section *ngIf="gameState === -1" class="gameOver__box">
   <span> Porażka </span> <button (click)="handleNewGame()">Nowa gra</button>
 </section>
 <section *ngIf="gameState === 1"><span> Wygrana </span></section>

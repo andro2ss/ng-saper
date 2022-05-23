@@ -154,6 +154,14 @@ export class AppComponent implements OnInit {
 
   gameControl(gameControlValues: number) {
     this.generateMap(gameControlValues);
+    let mapElement = document.getElementById('gameMap');
+    if (mapElement) {
+      mapElement.classList.toggle('animation__zoom');
+      mapElement.onanimationend = () => {
+        // @ts-ignore
+        mapElement.classList.toggle('animation__zoom');
+      };
+    }
   }
 
   handleNewGame() {
