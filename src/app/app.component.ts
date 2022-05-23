@@ -265,7 +265,11 @@ export class AppComponent implements OnInit {
       }
     }
     if (localData.activated) {
-      this.activatedField++;
+      ++this.activatedField;
+    }
+    let maximumField = this.mapArr.length - this.bombAmount;
+    if (this.activatedField === maximumField) {
+      this.gameState = 2;
     }
   }
 

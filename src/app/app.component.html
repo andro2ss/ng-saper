@@ -12,6 +12,14 @@
     <h2>Koniec Gry!</h2>
     <button (click)="handleNewGame()">Nowa gra</button>
   </div>
+  <div *ngIf="gameState === 2" class="gameOver__box" style="{{ mapStyle }}">
+    <div class="victory">
+      <div class="before"></div>
+      <div class="after"></div>
+    </div>
+    <h2>Gratulacje!</h2>
+    <button (click)="handleNewGame()">Nowa gra</button>
+  </div>
 </section>
 
 <p class="game__score" *ngIf="activatedField > 0">
